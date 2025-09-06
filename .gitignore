@@ -10,3 +10,4 @@ obj/
 # Ignorar cualquier ejecutable
 *.exe
 *.out
+*.o
