@@ -1,0 +1,12 @@
+# Ignorar carpetas generadas por Code::Blocks
+bin/
+obj/
+
+# Ignorar archivos de proyecto y dependencias de Code::Blocks
+*.cbp
+*.depend
+*.layout
+
+# Ignorar cualquier ejecutable
+*.exe
+*.out
