@@ -34,10 +34,10 @@ int main()
         printf("La cadena: ");
         puts(text1);
 
+        printf("Se encuentra: %s\n", (strVacio(text1) ? "No vacia" : "Vacia"));
 
         printf("Largo : %d\n", strLargo(text1));
 
-        printf("Se encuentra: %s\n", (strVacio(text1) ? "No vacia" : "Vacia"));
 
         strCopia(result, text1);
         printf("Copia : [%s]\n", result);
@@ -49,15 +49,15 @@ int main()
         strDer(result, text1);
         printf("Der : [%s]\n", result);
 
-//        strAmbos(result, text1);
-//        printf("Ambos: [%s], sin blancos al principio ni al final.\n", result);
-//
-//        strMayMin(result, text1, MAYUSCULAS);
-//        printf("Mayusculas : [%s]\n", result);
-//
-//        strMayMin(result, text1, MINUSCULAS);
-//        printf("Minusculas : [%s]\n", result);
-//
+        strAmbos(result, text1);
+        printf("Ambos: [%s], sin blancos al principio ni al final.\n", result);
+
+        strMayMin(result, text1, MAYUSCULAS);
+        printf("Mayusculas : [%s]\n", result);
+
+        strMayMin(result, text1, MINUSCULAS);
+        printf("Minusculas : [%s]\n", result);
+
 //        reves = reverse(text1);
 //        printf("La cadena: %s invertida queda: %s\n", text1, reves);
 
@@ -136,7 +136,73 @@ void strDer(char *destino, const char *origen){
         // NOTA: esto no está hecho con aritmética de punteros pura, ya que usamos una variable entera contador para simular índices que vamos sumando para recorrer las posiciones de memoria.
 }
 
-
 void strAmbos(char *destino, const char *origen){
+        //Creamos dos punteros que empiezan apuntando a origen y que nos permitirán delimitar el incio y el final de la cadena
+        char *inicio, *fin;
+        inicio = origen;
+        fin = origen;
 
+        //  --- Acomodando por derecha
+        //Empezamos acomodando el puntero fin en el final de la cadena
+        while(*(fin) != '\0'){
+                fin++;
+        }
+        //Decrementamos en uno porque quedó apuntando a \0
+        fin--;
+        //Decrementamos el puntero hasta encontrar un caracter distinto al espacio en blanco
+        while(*(fin) == ' '){
+                fin--;
+        }
+
+        //  --- Acomodando por izquierda
+        //Incrementamos el puntero hasta que apunte al primer caracter distinto a espacio en blanco
+        while(*(inicio) == ' '){
+                inicio++;
+        }
+
+
+        //  --- Copiando la cadena
+        // Usando los punteros ya acomodados comenzamos a copiar la cadena en destno
+        while(inicio <= fin){    //Inicio y final como referencia
+                *destino = *inicio;  //Copiamos en la dirección donde apunta destino el valor del char presente en la dirección a la que apunta inicio
+                //Por cada ciclo vamos incrementando en 1 los punteros para ir recorriendo la cadena
+                inicio++;
+                destino++;
+        }
+        //Cerramos poniendo como último caracter el caracter nulo como siempre
+        *(destino) = '\0';
 }
+
+void strMayMin(char *destino, const char *origen, may_min m){
+        int diferencia = 32; //32 es la diferencia en la tabla ascii entre una letra minúscula y la misma letra pero en mayúscula
+        if(m == MAYUSCULAS){
+
+                while(*origen != '\0'){
+                        if(*origen >= 'a' && *origen <= 'z'){
+                                //Con el if verificamos si la letra es minúscula
+                                *destino = *origen - diferencia;    //Una letra mayúscula es representada con un número menor en 32 unidades que la misma en minúscula
+                        } else {
+                                *destino = *origen;
+                        }
+                        destino++;
+                        origen++;
+                }
+                *destino = '\0';
+        } else {
+
+                while(*origen != '\0'){
+                        if(*origen >= 'A' && *origen <= 'Z'){
+                                //Con el if verificamos si la letra es mayúscula
+                                *destino = *origen + diferencia;
+                        } else {
+                                *destino = *origen;
+                        }
+                        destino++;
+                        origen++;
+                }
+                *destino = '\0';
+
+        }
+}
+
+//Reverse no hecho porque aún no dimos heap
