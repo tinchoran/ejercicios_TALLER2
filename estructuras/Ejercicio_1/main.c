@@ -121,7 +121,17 @@ int main()
 
 
         int i;
+      for(i=1;i<=TAM_ARCHIVO;i++){
+                archivos[i-1].ultima_mod.anio = 2025;
+                archivos[i-1].ultima_mod.mes = 5;
+                archivos[i-1].ultima_mod.dia = i*2;
+                archivos[i-1].ultima_mod.hora = 22;
+                archivos[i-1].ultima_mod.minuto = 30;
+                archivos[i-1].ultima_mod.segundo = 25;
+        }
+
         printf("\n\n");
+            printf("\n------------------------------------------------------------\n");
         printf(" Pre-Ordenamiento Alfabetico\n");
         for(i = 0;i <TAM_ARCHIVO;i++){
                 printf(" [%d] - Nombre: %20s\n", i,archivos[i].nombre);
@@ -133,14 +143,7 @@ int main()
         }
 
 
-        for(i=1;i<=TAM_ARCHIVO;i++){
-                archivos[i-1].ultima_mod.anio = 2025;
-                archivos[i-1].ultima_mod.mes = 5;
-                archivos[i-1].ultima_mod.dia = i*2;
-                archivos[i-1].ultima_mod.hora = 22;
-                archivos[i-1].ultima_mod.minuto = 30;
-                archivos[i-1].ultima_mod.segundo = 25;
-        }
+
         printf("\n------------------------------------------------------------\n");
         printf(" Pre-Ordenamiento Temporal\n");
         for(i = 0;i <TAM_ARCHIVO;i++){
