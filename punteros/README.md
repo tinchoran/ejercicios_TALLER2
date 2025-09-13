@@ -1,6 +1,6 @@
 # Ejercicio 6
 ### Escriba un programa que defina las siguientes variables
-```
+```c
 int i=5, j[]={1,2,3,4,5,6,7,8,9,10};
 char x = 'a', pal [] ="texto en c";
 int *pi;
@@ -43,7 +43,7 @@ al argumento. Probar dicha función.
 # Ejercicio 9
 ### Cadena de caracteres
 Escribir las funciones que operan sobre cadenas de caracteres.
-```
+```c
 #include <stdio.h>
 #include <stdlib.h>
 typedef enum { MAYUSCULAS, MINUSCULAS } may_min;
