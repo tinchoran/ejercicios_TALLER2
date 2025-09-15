@@ -18,6 +18,8 @@ double getCoef(int n, Polinomio * P);
 double especializa( double x, Polinomio * P );
 // Suma dos Polinomios retorna un nuevo Polinomio con el resultado
 Polinomio * sum( Polinomio *p1, Polinomio *p2);
+// Multiplica dos Polinomios y retorna un nuevo Polinomio con el resultado
+Polinomio * mult( Polinomio *p1, Polinomio *p2);
 
 
 int main(){
@@ -45,6 +47,14 @@ int main(){
       printf("\n");
       Polinomio *pc3 = sum(pc1, pc2);
       printf("Resultado del polinomio 3 en %d:  [%.2f]", 1, especializa(1, pc3));
+
+      Polinomio *pc4 = mult(pc1, pc2);
+      int j;
+      printf("\n");
+      for(j=0;j<=pc4->n;j++){
+            printf("\n");
+            printf("Potencia: %d | Coeficiente:  [%f]", j,pc4->coeficiente[j]);
+      }
 
       return 0;
 
@@ -81,7 +91,12 @@ double especializa( double x, Polinomio * P ){
 }
 
 Polinomio * sum( Polinomio *p1, Polinomio *p2){
+
+      // En realidad esto es siempre y cuando los coeficientes no se anulen. Habría que ir validando la suma de coeficientes para ver  si dan 0. Por ejemplo una suma de dos polinomios de orden  3, en el que el coef.principal de uno es 3x al cubo y el del otro es -3x al cubo. En ese caso el polinomio sería de orden 2 si es que los coeficientes de 2 tampoco se anulan y así.
+      // No hago esa validación, almenos por ahora, porque es una complejización innecesaria
       int ordenNuevoPol = (p1->n >= p2->n)?p1->n:p2->n;
+
+
       Polinomio *pPol = (Polinomio*) malloc(sizeof(Polinomio));
       pPol->n = ordenNuevoPol;
       pPol->coeficiente = (double*) malloc(sizeof(double) * (ordenNuevoPol + 1));
@@ -93,3 +108,28 @@ Polinomio * sum( Polinomio *p1, Polinomio *p2){
 
       return pPol;
 }
+
+
+Polinomio * mult( Polinomio *p1, Polinomio *p2){
+      int ordenNuevoPol = p1->n + p2->n; // El grado de un polinomio resultante de  un producto entre polinomios es la suma de los grados de los polinomios que se multiplican
+      Polinomio *pPol = (Polinomio*) malloc(sizeof(Polinomio));
+      pPol->n = ordenNuevoPol;
+      pPol->coeficiente = (double*) malloc(sizeof(double) * (ordenNuevoPol+1));
+
+      int i,j;
+      for (i = 0; i <= ordenNuevoPol; i++) {
+            pPol->coeficiente[i] = 0;  // inicializar
+      }
+
+      for(i = 0; i <= p1->n; i++){
+          for(j = 0; j <= p2->n; j++){
+              pPol->coeficiente[i+j] += p1->coeficiente[i] * p2->coeficiente[j];
+          }
+      }
+
+
+
+      return pPol;
+}
+
+
