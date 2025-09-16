@@ -36,7 +36,7 @@ int main(){
       setCoef(0, 10, pc1);
       printf("Coeficiente %d: [%f]", 2, getCoef(2, pc1));
       printf("\n");
-      printf("Resultado del polinomio 1 en %d:  [%.2f]", 1, especializa(1, pc1));
+      printf("Resultado del polinomio 1 en %d:  [%.2f]", 2, especializa(2, pc1));
       printf("\n");
       Polinomio *pc2 = creaPolinomio(3);
       setCoef(3, 10, pc2);
@@ -82,10 +82,11 @@ double getCoef(int n, Polinomio *P){
 }
 
 double especializa( double x, Polinomio * P ){
-      double resultado;
+      // ((…((c[n]*x+c[n-1])*x+c[n-2])*x+ …+c[1]*x)+c[0]  <-- usamos esta formula
+      double resultado =  P->coeficiente[P->n];
       int i;
-      for(i = 0; i<=P->n;i++){
-            resultado+=(P->coeficiente[i])*x;
+      for( i=P->n-1; i>=0 ; i--){
+            resultado =  (resultado * x) + P->coeficiente[i];
       }
       return resultado;
 }
@@ -102,8 +103,12 @@ Polinomio * sum( Polinomio *p1, Polinomio *p2){
       pPol->coeficiente = (double*) malloc(sizeof(double) * (ordenNuevoPol + 1));
 
       int i;
+      double coef1, coef2;
       for(i=0;i<=pPol->n;i++){
-            pPol->coeficiente[i] = p1->coeficiente[i] + p2->coeficiente[i];
+            // Validamos que los polinomios tengan índice en la posición a analizar para no leer afuera del array
+            coef1 = (p1->n >= i)?p1->coeficiente[i]:0.0;
+            coef2 = (p2->n >= i)?p2->coeficiente[i]:0.0;
+            pPol->coeficiente[i] = coef1 + coef2;
       }
 
       return pPol;
