@@ -20,6 +20,8 @@ double especializa( double x, Polinomio * P );
 Polinomio * sum( Polinomio *p1, Polinomio *p2);
 // Multiplica dos Polinomios y retorna un nuevo Polinomio con el resultado
 Polinomio * mult( Polinomio *p1, Polinomio *p2);
+//Deriva un Polinomio retornando un nuevo Polinomio con el resultado
+Polinomio * deriv( Polinomio *p );
 
 
 int main(){
@@ -54,6 +56,11 @@ int main(){
       for(j=0;j<=pc4->n;j++){
             printf("\n");
             printf("Potencia: %d | Coeficiente:  [%f]", j,pc4->coeficiente[j]);
+      }
+
+      Polinomio *Dpc1 = deriv(pc1);
+      for(j = Dpc1->n; j>=0;j--){
+            printf("\n Coeficiente [%d] : %.2f", j, getCoef(j, Dpc1));
       }
 
       return 0;
@@ -137,4 +144,16 @@ Polinomio * mult( Polinomio *p1, Polinomio *p2){
       return pPol;
 }
 
+
+Polinomio * deriv( Polinomio *p ){
+      Polinomio *pPol = (Polinomio*) malloc(sizeof(Polinomio));
+      pPol->n = p->n - 1; //Al derivar un polinomio obtenemos un polinomio de grado menor a una unidad al polinomio original
+      pPol->coeficiente = (double*) malloc(sizeof(double) * (pPol->n + 1));
+      int i = p->n;
+      for(i;i>=1;i--){
+            pPol->coeficiente[i-1] = (p->coeficiente[i]) * i;
+      }
+
+      return pPol;
+}
 
