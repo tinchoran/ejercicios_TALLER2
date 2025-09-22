@@ -22,46 +22,76 @@ Polinomio * sum( Polinomio *p1, Polinomio *p2);
 Polinomio * mult( Polinomio *p1, Polinomio *p2);
 //Deriva un Polinomio retornando un nuevo Polinomio con el resultado
 Polinomio * deriv( Polinomio *p );
-
+// Función estética para mostrar un polinomio
+void mostrarPolinomio( Polinomio *p);
 
 int main(){
 
       Polinomio *pc1 = creaPolinomio(4);
-      printf("%p\n", pc1);
 
-      printf("Orden del polinomio %d: [%d]", 1, pc1->n);
-      printf("\n");
       setCoef(4, 5, pc1);
       setCoef(3, 4, pc1);
       setCoef(2, 3, pc1);
       setCoef(1, 2, pc1);
       setCoef(0, 10, pc1);
-      printf("Coeficiente %d: [%f]", 2, getCoef(2, pc1));
-      printf("\n");
-      printf("Resultado del polinomio 1 en %d:  [%.2f]", 2, especializa(2, pc1));
-      printf("\n");
+
       Polinomio *pc2 = creaPolinomio(3);
       setCoef(3, 10, pc2);
       setCoef(2, 20, pc2);
       setCoef(1, 5, pc2);
       setCoef(0, 2, pc2);
-      printf("Resultado del polinomio 2 en %d:  [%.2f]", 1, especializa(1, pc2));
+
+
+      printf(" -------------------------------------------------\n");
+      printf("   Especializacion de polinomios  ");
+      printf(" \n -------------------------------------------------\n");
+      printf("  Polinomio:  ");
+      mostrarPolinomio(pc2);
+      printf("\n  Con x = %.0lf :  %.0lf", 3.0, especializa(3, pc2));
+
+
       printf("\n");
+      printf(" \n -------------------------------------------------\n");
+      printf("   Suma de polinomios  ");
+      printf(" \n -------------------------------------------------\n");
       Polinomio *pc3 = sum(pc1, pc2);
-      printf("Resultado del polinomio 3 en %d:  [%.2f]", 1, especializa(1, pc3));
+      printf("  Polinomios originales: ");
+      printf("\n  ");
+      mostrarPolinomio(pc1);
+      printf("\n  ");
+      mostrarPolinomio(pc2);
+      printf("\n\n");
+      printf("  Polinomio sumado:\n  ");
+      mostrarPolinomio(pc3);
 
-      Polinomio *pc4 = mult(pc1, pc2);
-      int j;
+
+
       printf("\n");
-      for(j=0;j<=pc4->n;j++){
-            printf("\n");
-            printf("Potencia: %d | Coeficiente:  [%f]", j,pc4->coeficiente[j]);
-      }
+      printf(" \n -------------------------------------------------\n");
+      printf("   Multiplicacion de polinomios  ");
+      printf(" \n -------------------------------------------------\n");
+      Polinomio *pc4 = mult(pc1, pc2);
+      printf("  Polinomios originales: ");
+      printf("\n  ");
+      mostrarPolinomio(pc1);
+      printf("\n  ");
+      mostrarPolinomio(pc2);
+      printf("\n\n");
+      printf("  Polinomio del producto:\n  ");
+      mostrarPolinomio(pc4);
 
+      printf("\n");
+      printf(" \n -------------------------------------------------\n");
+      printf("   Derivacion de polinomios  ");
+      printf(" \n -------------------------------------------------\n");
       Polinomio *Dpc1 = deriv(pc1);
-      for(j = Dpc1->n; j>=0;j--){
-            printf("\n Coeficiente [%d] : %.2f", j, getCoef(j, Dpc1));
-      }
+      printf("  Polinomio original:  ");
+      mostrarPolinomio(pc1);
+      printf("\n\n");
+      printf("  Polinomio derivado:  ");
+      mostrarPolinomio(Dpc1);
+      printf("\n");
+
 
       return 0;
 
@@ -155,5 +185,20 @@ Polinomio * deriv( Polinomio *p ){
       }
 
       return pPol;
+}
+
+
+void mostrarPolinomio( Polinomio *p){
+      int i = p->n;
+      for(i;i>=0;i--){
+            printf("%.0lf", getCoef(i, p));
+            if(i > 1){
+                  printf("(x^%d) + ", i);
+            } else if(i == 1){
+                  printf("x + ", i);
+            }
+
+      }
+
 }
 
