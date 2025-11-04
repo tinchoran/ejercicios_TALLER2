@@ -1,7 +1,7 @@
 # Ignorar carpetas generadas por Code::Blocks
 bin/
 obj/
-
+estudio/
 # Ignorar archivos de proyecto y dependencias de Code::Blocks
 *.cbp
 *.depend
@@ -11,3 +11,5 @@ obj/
 *.exe
 *.out
 *.o
+
+*.pdf
